@@ -26,9 +26,9 @@ public class EarthquakeFetcher {
 
                 // 寫入 JSON 檔案
                 Files.write(Paths.get(outputPath), json.getBytes());
-                System.out.println("✔ 地震資料已寫入到 " + outputPath);
+                System.out.println("地震資料已寫入到 " + outputPath);
             } else {
-                System.err.println("✘ 無法抓取資料，HTTP 狀態碼: " + conn.getResponseCode());
+                System.err.println("無法抓取資料，HTTP 狀態碼: " + conn.getResponseCode());
             }
 
         } catch (IOException e) {
