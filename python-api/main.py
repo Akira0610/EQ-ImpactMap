@@ -3,7 +3,6 @@ from routers import earthquake
 
 app = FastAPI()
 
-# 註冊 earthqaukes 路由，處理地震查詢
 app.include_router(earthquake.router, prefix="/earthquakes")
 
 @app.get("/")
