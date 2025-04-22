@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Earthquake Map</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    h1 { padding: 16px; }
+    #map-container { width: 100vw; height: 90vh; }
+  </style>
+</head>
+<body>
+  <h1>Global Earthquake Map</h1>
+  <div id="map-container">
+    {{ deck_html | safe }}
+  </div>
+</body>
+</html>

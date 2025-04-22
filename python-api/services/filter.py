@@ -1,5 +1,3 @@
-# services/filter.py
-
 from datetime import datetime
 
 def filter_earthquakes(data, min_mag=None, max_mag=None, start_time=None, end_time=None, region=None):
