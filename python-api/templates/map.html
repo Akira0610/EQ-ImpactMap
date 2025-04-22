@@ -3,51 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Global Earthquake Map</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: #121212;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        header {
-            padding: 1rem;
-            font-size: 1.5rem;
-            background-color: #1e1e1e;
-        }
-        #map-container {
-            height: 85vh;
-        }
-        form {
-            background-color: #1e1e1e;
-            padding: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        form label {
-            display: block;
-            font-size: 0.9rem;
-        }
-        form input {
-            padding: 0.5rem;
-            font-size: 1rem;
-        }
-        button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+
+    <!-- ✅ 外部樣式 -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- ✅ 外部 JS -->
+    <script src="/static/js/main.js" defer></script>
 </head>
 <body>
 <header>
     <strong>Global Earthquake Map</strong>
 </header>
 
+<!-- ✅ 查詢欄位 -->
 <form id="query-form">
     <div>
         <label>Start Time</label>
@@ -74,26 +42,10 @@
     </div>
 </form>
 
+<!-- ✅ 地圖嵌入區塊 -->
 <div id="map-container">
     {{ deck_html | safe }}
 </div>
 
-<script>
-document.getElementById("query-form").addEventListener("submit", async function(e) {
-    e.preventDefault();
-    const params = new URLSearchParams(new FormData(e.target)).toString();
-    const response = await fetch(`/earthquakes?${params}`);
-    const json = await response.json();
-
-    // 發送資料給地圖渲染端點
-    const mapRes = await fetch("/map", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(json)
-    });
-    const html = await mapRes.text();
-    document.getElementById("map-container").innerHTML = html;
-});
-</script>
 </body>
 </html>
