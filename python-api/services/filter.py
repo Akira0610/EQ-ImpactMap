@@ -12,10 +12,10 @@ def filter_earthquakes(data, min_mag=None, max_mag=None, start_time=None, end_ti
         time = props.get("time")  # epoch time
         place = props.get("place", "")
 
-        # 時間轉換
+        # Time
         event_time = datetime.utcfromtimestamp(time / 1000)
 
-        # 條件過濾
+        # filiter
         if min_mag is not None and mag < min_mag:
             continue
         if max_mag is not None and mag > max_mag:

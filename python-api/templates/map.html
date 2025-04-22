@@ -1,18 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Earthquake Map</title>
-  <style>
-    body { margin: 0; font-family: sans-serif; }
-    h1 { padding: 16px; }
-    #map-container { width: 100vw; height: 90vh; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Global Earthquake Map</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            padding: 1rem;
+            font-size: 1.5rem;
+            background-color: #1e1e1e;
+        }
+        #map-container {
+            height: 85vh;
+        }
+        form {
+            background-color: #1e1e1e;
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        form label {
+            display: block;
+            font-size: 0.9rem;
+        }
+        form input {
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <h1>Global Earthquake Map</h1>
-  <div id="map-container">
+<header>
+    <strong>Global Earthquake Map</strong>
+</header>
+
+<form id="query-form">
+    <div>
+        <label>Start Time</label>
+        <input type="datetime-local" name="start_time">
+    </div>
+    <div>
+        <label>End Time</label>
+        <input type="datetime-local" name="end_time">
+    </div>
+    <div>
+        <label>Min Magnitude</label>
+        <input type="number" step="0.1" name="min_magnitude" min="0" max="10">
+    </div>
+    <div>
+        <label>Max Magnitude</label>
+        <input type="number" step="0.1" name="max_magnitude" min="0" max="10">
+    </div>
+    <div>
+        <label>Region</label>
+        <input type="text" name="region">
+    </div>
+    <div>
+        <button type="submit">Search</button>
+    </div>
+</form>
+
+<div id="map-container">
     {{ deck_html | safe }}
-  </div>
+</div>
+
+<script>
+document.getElementById("query-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const params = new URLSearchParams(new FormData(e.target)).toString();
+    const response = await fetch(`/earthquakes?${params}`);
+    const json = await response.json();
+
+    // 發送資料給地圖渲染端點
+    const mapRes = await fetch("/map", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(json)
+    });
+    const html = await mapRes.text();
+    document.getElementById("map-container").innerHTML = html;
+});
+</script>
 </body>
 </html>
