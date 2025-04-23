@@ -44,8 +44,9 @@
 
 <!-- ✅ 地圖嵌入區塊 -->
 <div id="map-container">
-    {{ deck_html | safe }}
+    <div id="deck-container"></div>
+        {{ deck_html | safe }}
+    </div>
 </div>
-
 </body>
 </html>
