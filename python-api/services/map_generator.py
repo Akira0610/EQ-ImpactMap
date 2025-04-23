@@ -35,7 +35,7 @@ def generate_earthquake_map(data) -> str:
 
     # ✅ 已完全處理過的 list
     elif isinstance(data, list):
-        parsed = data
+        parsed.extend(data)
 
     else:
         return "<h3>⚠️ 地圖產生失敗：資料格式錯誤</h3>"
