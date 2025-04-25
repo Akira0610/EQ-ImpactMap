@@ -5,58 +5,66 @@ from datetime import datetime
 def generate_earthquake_map(data) -> str:
     parsed = []
 
-    # ✅ USGS 原始格式（帶 geometry 和 properties）
-    if isinstance(data, dict) and "features" in data and isinstance(data["features"], list) and "properties" in data["features"][0]:
-        for r in data["features"]:
-            props = r["properties"]
-            coords = r["geometry"]["coordinates"]
-            parsed.append({
-                "lon": coords[0],
-                "lat": coords[1],
-                "depth": coords[2],
-                "magnitude": props.get("mag", 0),
-                "place": props.get("place", ""),
-                "time": datetime.utcfromtimestamp(props["time"] / 1000).strftime("%Y-%m-%d %H:%M UTC")
-            })
+    # ✅ USGS 原始格式（GeoJSON）
+    if isinstance(data, dict) and "features" in data and isinstance(data["features"], list):
+        features = data["features"]
+        for r in features:
+            props = r.get("properties", {})
+            coords = r.get("geometry", {}).get("coordinates", [])
+            if len(coords) >= 2:
+                try:
+                    parsed.append({
+                        "lon": float(coords[0]),
+                        "lat": float(coords[1]),
+                        "depth": float(coords[2]) if len(coords) > 2 else 0,
+                        "magnitude": float(props.get("mag", 0)),
+                        "place": props.get("place", "Unknown"),
+                        "time": datetime.utcfromtimestamp(props["time"] / 1000).strftime("%Y-%m-%d %H:%M UTC")
+                    })
+                except Exception:
+                    continue
 
-    # ✅ FastAPI 回傳格式（features 是 dicts，每筆有 coordinates）
+    # ✅ 已處理過的 FastAPI 格式
     elif isinstance(data, dict) and "features" in data and isinstance(data["features"], list):
         for r in data["features"]:
             coords = r.get("coordinates", [])
             if len(coords) >= 2:
-                parsed.append({
-                    "lon": coords[0],
-                    "lat": coords[1],
-                    "depth": coords[2] if len(coords) > 2 else 0,
-                    "magnitude": r.get("magnitude", 0),
-                    "place": r.get("place", ""),
-                    "time": datetime.fromisoformat(r["time"]).strftime("%Y-%m-%d %H:%M UTC")
-                })
+                try:
+                    parsed.append({
+                        "lon": float(coords[0]),
+                        "lat": float(coords[1]),
+                        "depth": float(coords[2]) if len(coords) > 2 else 0,
+                        "magnitude": float(r.get("magnitude", 0)),
+                        "place": r.get("place", "Unknown"),
+                        "time": datetime.fromisoformat(r["time"]).strftime("%Y-%m-%d %H:%M UTC")
+                    })
+                except Exception:
+                    continue
 
-    # ✅ 已完全處理過的 list
+    # ✅ 已完全處理過的 List 格式
     elif isinstance(data, list):
-        parsed.extend(data)
+        parsed = data
 
     else:
-        return "<h3>⚠️ 地圖產生失敗：資料格式錯誤</h3>"
+        return "<h3>❌ 地圖產生失敗：資料格式錯誤</h3>"
 
-    print("[DEBUG] Parsed data preview:")
-    print(parsed[:3])
-    print("[DEBUG] Total parsed:", len(parsed))
+    # ✅ 若資料為空
+    if not parsed:
+        return "<h3>❌ 找不到符合條件的地震資料</h3>"
 
     df = pd.DataFrame(parsed)
-    print("[DEBUG] DataFrame columns:", df.columns)
 
-    if df.empty:
-        return "<h3>❌ 找不到任何符合條件的地震資料</h3>"
+    # ✅ 確認欄位完整性
+    if df.empty or "lon" not in df or "lat" not in df:
+        return "<h3>❌ 無有效的地震位置資料</h3>"
 
-    # 🔴 這裡不要再拆 coordinates，因為已經拆過了
+    # ✅ Pydeck Layer 設定
     layer = pdk.Layer(
         "ScatterplotLayer",
         data=df,
         get_position="[lon, lat]",
         get_radius="magnitude * 8000",
-        get_color="[255, 0, 0, 160]",
+        get_color="[255, 0, 0, 140]",
         pickable=True
     )
 
@@ -67,6 +75,7 @@ def generate_earthquake_map(data) -> str:
         pitch=45
     )
 
+    # ✅ Mapbox + Tooltip
     deck = pdk.Deck(
         layers=[layer],
         initial_view_state=view_state,
@@ -76,6 +85,7 @@ def generate_earthquake_map(data) -> str:
                 <div>
                     <b>{place}</b><br/>
                     Magnitude: {magnitude}<br/>
+                    Depth: {depth} km<br/>
                     Time: {time}
                 </div>
             """,

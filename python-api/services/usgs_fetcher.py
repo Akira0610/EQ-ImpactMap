@@ -1,5 +1,6 @@
 # python-api/services/usgs_fetcher.py
 
+import json
 import requests
 from datetime import datetime
 

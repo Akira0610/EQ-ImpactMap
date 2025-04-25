@@ -15,20 +15,24 @@ def get_earthquakes(
     end_time: Optional[str] = Query(default=None),
     region: Optional[str] = Query(default=None),
 ):
-    # ✅ 處理空字串轉換
-    min_magnitude = float(min_magnitude) if min_magnitude else None
-    max_magnitude = float(max_magnitude) if max_magnitude else None
-    start_time = start_time or None
-    end_time = end_time or None
-    region = region or None
+    try:
+        # ✅ 處理空字串與轉型
+        min_magnitude = float(min_magnitude) if min_magnitude not in (None, "", "null") else None
+        max_magnitude = float(max_magnitude) if max_magnitude not in (None, "", "null") else None
+        start_time = start_time if start_time not in (None, "", "null") else None
+        end_time = end_time if end_time not in (None, "", "null") else None
+        region = region if region not in (None, "", "null") else None
 
-    raw_data = load_earthquake_data()
-    filtered = filter_earthquakes(
-        raw_data,
-        min_mag=min_magnitude,
-        max_mag=max_magnitude,
-        start_time=start_time,
-        end_time=end_time,
-        region=region
-    )
-    return filtered
+        raw_data = load_earthquake_data()
+        filtered = filter_earthquakes(
+            raw_data,
+            min_mag=min_magnitude,
+            max_mag=max_magnitude,
+            start_time=start_time,
+            end_time=end_time,
+            region=region
+        )
+        return filtered
+    
+    except Exception as e:
+        return {"error": f"發生錯誤：{str(e)}"}

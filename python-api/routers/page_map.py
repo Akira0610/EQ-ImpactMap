@@ -26,10 +26,8 @@ def render_template_map(request: Request):
 async def render_dynamic_map(request: Request):
     try:
         payload = await request.json()
-        print("[DEBUG] POST /map payload received:", type(payload), payload)
         html = generate_earthquake_map(payload)
         return HTMLResponse(content=html)
     except Exception as e:
-        err_msg = f"<h3>地圖產生失敗：{e}</h3><pre>{traceback.format_exc()}</pre>"
-        print("[ERROR] Map render failed:", e)
-        return HTMLResponse(content=err_msg, status_code=500)
+        return HTMLResponse(content=f"<h3>地圖產生失敗：{e}</h3>", status_code=500)
+
