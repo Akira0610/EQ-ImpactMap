@@ -1,8 +1,11 @@
 // java-fetcher/src/EarthquakeFetcher.java
 
-import java.io.*;
-import java.net.*;
-import java.nio.file.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class EarthquakeFetcher {
     public static void main(String[] args) {
@@ -17,9 +20,10 @@ public class EarthquakeFetcher {
 
             // 檢查回應碼
             if (conn.getResponseCode() == 200) {
-                InputStream inputStream = conn.getInputStream();
-                String json = new String(inputStream.readAllBytes());
-                inputStream.close();
+                String json;
+                try (InputStream inputStream = conn.getInputStream()) {
+                    json = new String(inputStream.readAllBytes());
+                }
 
                 // 確保輸出資料夾存在
                 Files.createDirectories(Paths.get("out"));
@@ -32,7 +36,6 @@ public class EarthquakeFetcher {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
