@@ -1,14 +1,34 @@
+function setInnerHTML(elm, html) {
+    elm.innerHTML = html;
+    
+    Array.from(elm.querySelectorAll("script"))
+      .forEach( oldScriptEl => {
+        const newScriptEl = document.createElement("script");
+        
+        Array.from(oldScriptEl.attributes).forEach( attr => {
+          newScriptEl.setAttribute(attr.name, attr.value) 
+        });
+        
+        const scriptText = document.createTextNode(oldScriptEl.innerHTML);
+        newScriptEl.appendChild(scriptText);
+        
+        oldScriptEl.parentNode.replaceChild(newScriptEl, oldScriptEl);
+    });
+  }
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("query-form");
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const formData = new FormData(form);
         const params = Object.fromEntries(formData.entries());
 
         // ✅ 防呆驗證條件
         const errors = [];
         const now = new Date();
+
         const startTime = params.start_time ? new Date(params.start_time) : null;
         const endTime = params.end_time ? new Date(params.end_time) : null;
         const minMag = params.min_magnitude;
@@ -63,13 +83,13 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                features: await fetchEarthquakeData(params)
-            }),
+            body: JSON.stringify(params),
         });
 
         const html = await res.text();
-        document.getElementById("map-container").innerHTML = html;
+        console.log("[✅ 後端回傳]", html);
+        setInnerHTML(document.getElementById("deck-container"), html);
+        // document.getElementById("deck-container").innerHTML = html;
     });
 });
 

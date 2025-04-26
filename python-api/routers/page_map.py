@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from services.fetcher import load_earthquake_data
 from services.map_generator import generate_earthquake_map
 import traceback
+from .earthquake import get_earthquakes
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
@@ -24,9 +25,18 @@ def render_template_map(request: Request):
 # ✅ POST /map：接收查詢條件並更新地圖
 @router.post("/map", response_class=HTMLResponse)
 async def render_dynamic_map(request: Request):
+    print("[DEBUG] 收到 POST 請求")
     try:
-        payload = await request.json()
-        html = generate_earthquake_map(payload)
+        filterpara = await request.json()
+        
+        result1 = get_earthquakes(
+            min_magnitude=filterpara.get("min_magnitude"),
+            max_magnitude=filterpara.get("max_magnitude"),
+            start_time=filterpara.get("start_time"),
+            end_time=filterpara.get("end_time"),
+            region=filterpara.get("region")
+        )
+        html = generate_earthquake_map(result1)
         return HTMLResponse(content=html)
     except Exception as e:
         return HTMLResponse(content=f"<h3>地圖產生失敗：{e}</h3>", status_code=500)

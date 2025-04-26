@@ -40,4 +40,4 @@ def filter_earthquakes(data, min_mag=None, max_mag=None, start_time=None, end_ti
         })
 
     print(f"[DEBUG] ✅ 過濾後筆數: {len(filtered)}")
-    return {"features": filtered}
+    return filtered

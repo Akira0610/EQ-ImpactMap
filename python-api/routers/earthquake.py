@@ -7,13 +7,13 @@ from typing import Optional
 
 router = APIRouter()
 
-@router.get("")
+
 def get_earthquakes(
-    min_magnitude: Optional[str] = Query(default=None),
-    max_magnitude: Optional[str] = Query(default=None),
-    start_time: Optional[str] = Query(default=None),
-    end_time: Optional[str] = Query(default=None),
-    region: Optional[str] = Query(default=None),
+    min_magnitude: Optional[float],
+    max_magnitude: Optional[float],
+    start_time: Optional[str],
+    end_time: Optional[str],
+    region: Optional[str],
 ):
     try:
         # ✅ 處理空字串與轉型

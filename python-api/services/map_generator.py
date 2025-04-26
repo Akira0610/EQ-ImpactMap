@@ -42,8 +42,19 @@ def generate_earthquake_map(data) -> str:
                     continue
 
     # ✅ 已完全處理過的 List 格式
-    elif isinstance(data, list):
-        parsed = data
+    elif isinstance(data, list) and isinstance(data[0], dict) and "place" in data[0]:
+        for r in data:
+            coords = r.get("coordinates", [])
+            if len(coords) >= 2:
+                parsed.append({
+                    "lon": coords[0],
+                    "lat": coords[1],
+                    "depth": coords[2] if len(coords) > 2 else 0,
+                    "magnitude": r.get("magnitude", 0),
+                    "place": r.get("place", ""),
+                    "time": datetime.fromisoformat(r["time"]).strftime("%Y-%m-%d %H:%M UTC")
+                })
+
 
     else:
         return "<h3>❌ 地圖產生失敗：資料格式錯誤</h3>"
