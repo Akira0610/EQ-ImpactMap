@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Global Earthquake Map</title>
-
     <!-- ✅ 外部樣式 -->
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    <!-- Deck GL  -->
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <!-- optional if mapbox base map is needed -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.3/mapbox-gl.css" rel="stylesheet" />
+    <script defer src="https://api.mapbox.com/mapbox-gl-js/v1.13.3/mapbox-gl.js"></script>
 
     <!-- ✅ 外部 JS -->
-    <script src="/static/js/main.js" defer></script>
+    <script defer src="/static/js/main.js" defer></script>
 </head>
 <body>
 <header>
@@ -44,8 +49,7 @@
 
 <!-- ✅ 地圖嵌入區塊 -->
 <div id="map-container">
-    <!-- 將地圖直接插入這個容器 -->
-    {{ deck_html | safe }}
+    
 </div>
 
 </body>

@@ -1,23 +1,50 @@
 function setInnerHTML(elm, html) {
     elm.innerHTML = html;
-    
-    Array.from(elm.querySelectorAll("script"))
-      .forEach( oldScriptEl => {
-        const newScriptEl = document.createElement("script");
-        
-        Array.from(oldScriptEl.attributes).forEach( attr => {
-          newScriptEl.setAttribute(attr.name, attr.value) 
-        });
-        
-        const scriptText = document.createTextNode(oldScriptEl.innerHTML);
-        newScriptEl.appendChild(scriptText);
-        
-        oldScriptEl.parentNode.replaceChild(newScriptEl, oldScriptEl);
-    });
-  }
 
-document.addEventListener("DOMContentLoaded", () => {
+    Array.from(elm.querySelectorAll("script"))
+        .forEach(oldScriptEl => {
+            const newScriptEl = document.createElement("script");
+
+            Array.from(oldScriptEl.attributes).forEach(attr => {
+                newScriptEl.setAttribute(attr.name, attr.value)
+            });
+
+            const scriptText = document.createTextNode(oldScriptEl.innerHTML);
+            newScriptEl.appendChild(scriptText);
+
+            oldScriptEl.parentNode.replaceChild(newScriptEl, oldScriptEl);
+        });
+}
+
+/*
+{
+Array<{
+    coordinate: [number, number, number];
+    magnitude: number;
+    place: string;
+    time: number;
+}>
+}
+
+*/
+
+
+document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById("query-form");
+    let deckGl;
+    const { DeckGL, ScatterplotLayer } = deck;
+
+    function createScatterLayer(data) {
+        return new ScatterplotLayer({
+            id: 'circles',
+            data: data,
+            radiusMinPixels: 0.5,
+            getPosition: d => d.coordinates,
+            getColor: [255, 0, 0],
+            getRadius: d => d.magnitude * 8000,
+            pickable: true
+        })
+    }
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -78,42 +105,55 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // ✅ 傳送查詢條件給後端
-        const res = await fetch("/map", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(params),
-        });
+        const data = await fetchEarthquakeInfo(params);
 
-        const html = await res.text();
-        console.log("[✅ 後端回傳]", html);
-        setInnerHTML(document.getElementById("deck-container"), html);
-        // document.getElementById("deck-container").innerHTML = html;
+        // console.log("[✅ 後端回傳]", data);
+        updateLayer(data);
+    });
+
+    function updateLayer(data) {
+        if (deckGl === undefined) return;
+
+        deckGl.setProps({ layers: [createScatterLayer(data),] })
+    }
+
+    const initialData = await fetchEarthquakeInfo()
+
+    deckGl = new DeckGL({
+        container: "map-container",
+        mapStyle: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+        initialViewState: {
+            longitude: 123.45,
+            latitude: 23,
+            zoom: 5
+        },
+        getTooltip: function({object}) {
+            return object && `
+                ${object.time}
+                ${object.coordinates}
+                ${object.place}
+                ${object.magnitude}
+            `;
+        } ,
+        controller: true,
+        layers: [
+            createScatterLayer(initialData)
+        ]
     });
 });
 
-// ✅ 向後端查詢地震資料（轉 GET）
-async function fetchEarthquakeData(params) {
-    const urlParams = new URLSearchParams(params).toString();
-
-    try {
-        const res = await fetch('/earthquakes?${urlParams}');
-
-        // 🔴 若伺服器回傳錯誤（如 500、404）
-        if (!res.ok) {
-            throw new Error('後端錯誤（狀態碼 ${res.status}）');
-        }
-
-        const data = await res.json();
-
-        // ✅ 回傳資料格式正確才解析
-        return data.features || [];
-
-    } catch (err) {
-        console.error("[❌ 前端錯誤]", err);
-        alert("❌ 查詢失敗：後端可能無法處理這筆請求，請檢查輸入條件或稍後再試！");
-        return [];
-    }
+/**
+ * @param {object} param 篩選地震資料的條件
+ */
+async function fetchEarthquakeInfo(params = {}) {
+    return fetch(
+        "/earthquake-info",
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(params),
+        })
+        .then(res => res.json())
+        .catch(error => console.error("[❌ 前端錯誤]", error));
 }
 
