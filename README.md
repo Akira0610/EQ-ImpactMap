@@ -12,8 +12,12 @@ Data Sources : USGS Earthquake Database
 1. 安裝需要的要件 (install requirements)
 `pip install -r requirements.txt`
 2. 啟動伺服器 (Start the backend server)
-`cd python-api
-uvicorn main:app --reload`
+```
+cd python-api
+uvicorn main:app --reload
+
+```
+
 3. 開始瀏覽器 | Open youe browser and go to :
 瀏覽 http://localhost:8000/map 即可開始使用。
 
