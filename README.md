@@ -15,9 +15,7 @@ Data Sources : USGS Earthquake Database
 ```
 cd python-api
 uvicorn main:app --reload
-
 ```
-
 3. 開始瀏覽器 | Open youe browser and go to :
 瀏覽 http://localhost:8000/map 即可開始使用。
 
