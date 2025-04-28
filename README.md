@@ -10,8 +10,10 @@ Data Sources : USGS Earthquake Database
 
 # 安裝方式 | Installation
 1. 安裝需要的要件 (install requirements)
-`pip install -r requirements.txt`
-2. 啟動伺服器 (Start the backend server)
+```
+pip install -r requirements.txt
+```
+3. 啟動伺服器 (Start the backend server)
 ```
 cd python-api
 uvicorn main:app --reload
