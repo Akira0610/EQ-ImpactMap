@@ -1,6 +1,10 @@
   # Global Earthquake Realtime Visualization Platform
+![Language](https://img.shields.io/badge/language-python-blue)
+![Language](https://img.shields.io/badge/language-JS-yellow)
+![Language](https://img.shields.io/badge/language-JAVA-red)
+![Language](https://img.shields.io/badge/language-CSS-purple)
+![Language](https://img.shields.io/badge/language-HTML-brown)
 ![License](https://img.shields.io/badge/license-yes-yellow)
-![Language](https://img.shields.io/badge/language-python,JAVA-blue)  
 
 # 🌏目錄
 - [簡介](#專案簡介)
