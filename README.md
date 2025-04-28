@@ -32,15 +32,15 @@ uvicorn main:app --reload
 
 # 主要模組說明(Main module description)
 模組 | 說明
-main.py | FastAPI 主入口，註冊路由與靜態檔案設定
-routers/earthquake.py | 地震資料查詢 API
-routers/page_map.py | 地圖頁面渲染 API
-services/usgs_fetcher.py | 即時擷取 USGS 地震資料
-services/filter.py | 資料篩選邏輯
-services/map_generator.py | 產生 Pydeck 地圖 HTML
-templates/map.html | 地圖頁面模板
-static/js/main.js | 前端互動與防呆邏輯
-static/css/style.css | 頁面樣式設定
+- main.py | FastAPI 主入口，註冊路由與靜態檔案設定
+- routers/earthquake.py | 地震資料查詢 API
+- routers/page_map.py | 地圖頁面渲染 API
+- services/usgs_fetcher.py | 即時擷取 USGS 地震資料
+- services/filter.py | 資料篩選邏輯
+- services/map_generator.py | 產生 Pydeck 地圖 HTML
+- templates/map.html | 地圖頁面模板
+- static/js/main.js | 前端互動與防呆邏輯
+- static/css/style.css | 頁面樣式設定
 
 # 規劃(TODO)
 1.  切換至 React 前端
