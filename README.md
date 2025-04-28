@@ -8,13 +8,13 @@ An interactive real-time earthquake data visualization platform, bulit with Fast
 資料來源：美國地質調查局資料庫
 Data Sources : USGS Earthquake Database
 
-# 如何使用(Usage)
-1. 安裝需要的要件 (install requirements)\n
+# 安裝方式 | Installation
+1. 安裝需要的要件 (install requirements)
 `pip install -r requirements.txt`
-2. 啟動伺服器 (Start server)
-`cd python-api`
-`uvicorn main:app --reload`
-3. 開始使用(open map)
+2. 啟動伺服器 (Start the backend server)
+`cd python-api
+uvicorn main:app --reload`
+3. 開始瀏覽器 | Open youe browser and go to :
 瀏覽 http://localhost:8000/map 即可開始使用。
 
 # 功能特色(Features)
