@@ -6,11 +6,12 @@ Global Earthquake Realtime Visualization Platform
 - [功能清單 | Usage](#功能清單--usage)
 - [技術架構 | Tech Stack](#技術架構--techstack)
 - [授權條款 | License](#授權條款--license)
+- [規劃 | Todo](#規劃--todo)
   
 ## 簡介(Introduction)
 一個即時整合 USGS 全球地震資料的互動式地圖平台，使用 FastAPI + Pydeck + Mapbox 實作，支援地震篩選、地圖即時更新，並提供搜尋與視覺化功能。  
 An interactive real-time earthquake data visualization platform, bulit with FastAPI,Pydeck,and Mapbox.  
-###資料來源：美國地質調查局資料庫 ( Data Sources : USGS Earthquake Database )
+### 資料來源：美國地質調查局資料庫 ( Data Sources : USGS Earthquake Database )
 
 ## 安裝方式 | Installation
 1. 安裝需要的要件 | install requirements
@@ -45,7 +46,15 @@ uvicorn main:app --reload
 - static/js/main.js | 前端互動與防呆邏輯
 - static/css/style.css | 頁面樣式設定
 
-## 規劃(TODO)
+## 技術架構 | Tech Stack
+1. 使用者(瀏覽者) 逛網頁
+    後端提供靜態檔案 (html, js, css) 給瀏覽者
+    `page_map.py GET /map`
+
+## 授權條款 | License  
+此專案僅供個人學習與履歷展示用途，禁止未經授權之商業用途。  
+This project is intended for personal learning and portfolio demonstration only. Unauthorized commercial use is prohibited.  
+## 規劃(Todo)
 1. 切換至 React 前端
 2. 增加地震動畫回放功能
 3. 手機版介面最佳化
@@ -56,8 +65,3 @@ uvicorn main:app --reload
 8. if we can finish, use RWD(Responsive Web Design)
 
 
-## 技術架構 | Tech Stack
-
-1. 使用者(瀏覽者) 逛網頁
-    後端提供靜態檔案 (html, js, css) 給瀏覽者
-    `page_map.py GET /map`
