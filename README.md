@@ -1,21 +1,21 @@
   # Global Earthquake Realtime Visualization Platform
-  ## 全球地震實時視覺化平台
-
 ![License](https://img.shields.io/badge/license-yes-yellow)
-![Language](https://img.shields.io/badge/language-c++-brightgreen)
-![Language](https://img.shields.io/badge/language-JAVA-red)
-![Language](https://img.shields.io/badge/language-python-blue)  
-🌏 
+![Language](https://img.shields.io/badge/language-python,JAVA-blue)  
+
+# 🌏目錄 | Table of Contents 
 - [簡介 | Itroduction](#專案簡介--introduction)
 - [安裝方式 | Installation](#安裝方式--installation)
 - [功能清單 | Usage](#功能清單--usage)
 - [技術架構 | Tech Stack](#技術架構--techstack)
+- [系統架構圖 | System Architecture](#系統架構圖--systemarchitecture)
 - [授權條款 | License](#授權條款--license)
 - [規劃 | Todo](#規劃--todo)
+- [銘謝 | Acknowledgements](#銘謝--acknowledgements)
   
 ## 簡介 | Introduction
 一個即時整合 USGS 全球地震資料的互動式地圖平台，使用 FastAPI + Pydeck + Mapbox 實作，支援地震篩選、地圖即時更新，並提供搜尋與視覺化功能。  
 An interactive real-time earthquake data visualization platform, bulit with FastAPI,Pydeck,and Mapbox.  
+
 ### 資料來源：美國地質調查局資料庫 ( Data Sources : USGS Earthquake Database )
 
 ## 安裝方式 | Installation
@@ -55,13 +55,7 @@ uvicorn main:app --reload
 
 ### 地圖框架 | Map Framework
 - **Pydeck** – 基於 Deck.gl 的 Python 視覺化工具
-
-### 部署環境 (選填) | Deployment (Optional)
-- **Localhost**（本地開發測試）
-- （可日後補上雲端部署平台如 Vercel、AWS）
-
 ---
-
 ## 系統架構圖 | System Architecture
 
 ```
@@ -90,4 +84,7 @@ This project is intended for personal learning and portfolio demonstration only.
 7. deploy to sever
 8. if we can finish, use RWD(Responsive Web Design)
 
-
+## 銘謝 | Acknowledgements 
+感謝您使用/閱覽我人生中第一個專案!!如果有任何建議或問題，歡迎提出Issue。  
+Thank you for using/watching my FIRST project!  
+Feel free to open as issue if you have any suggestions or questions.
