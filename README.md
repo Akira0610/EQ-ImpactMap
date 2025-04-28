@@ -27,33 +27,21 @@ uvicorn main:app --reload
 瀏覽 http://localhost:8000/map 即可開始使用。
 
 ## 功能清單 | Usage
-- 即時獲取全球地震資料
-- 支援搜尋（震度、時間、地區）
-- 動態更新地圖
-- 點擊地震點顯示詳細資訊
-- 前端表單防呆機制
-- 地圖美觀且支援縮放、拖曳、互動
-
-## 主要模組說明 | Main module description
-模組 | 說明
-- main.py | FastAPI 主入口，註冊路由與靜態檔案設定
-- routers/earthquake.py | 地震資料查詢 API
-- routers/page_map.py | 地圖頁面渲染 API
-- services/usgs_fetcher.py | 即時擷取 USGS 地震資料
-- services/filter.py | 資料篩選邏輯
-- services/map_generator.py | 產生 Pydeck 地圖 HTML
-- templates/map.html | 地圖頁面模板
-- static/js/main.js | 前端互動與防呆邏輯
-- static/css/style.css | 頁面樣式設定
+- 即時獲取全球地震資料 | Instantly retrieve global earthquake data
+- 支援搜尋（震度、時間、地區） | Support searching (magnitude, time, location)
+- 動態更新地圖 | Dynamically update the map
+- 地震點顯示詳細資訊 | Display detailed information on map points
+- 支援縮放、拖曳、互動 | Zooming, dragging, and navigation support
 
 ## 技術架構 | Tech Stack
 1. 使用者(瀏覽者) 逛網頁
     後端提供靜態檔案 (html, js, css) 給瀏覽者
     `page_map.py GET /map`
-
+2.  
 ## 授權條款 | License  
 此專案僅供個人學習與履歷展示用途，禁止未經授權之商業用途。  
-This project is intended for personal learning and portfolio demonstration only. Unauthorized commercial use is prohibited.  
+This project is intended for personal learning and portfolio demonstration only. Unauthorized commercial use is prohibited.
+
 ## 規劃(Todo)
 1. 切換至 React 前端
 2. 增加地震動畫回放功能
