@@ -37,7 +37,40 @@ uvicorn main:app --reload
 1. 使用者(瀏覽者) 逛網頁
     後端提供靜態檔案 (html, js, css) 給瀏覽者
     `page_map.py GET /map`
-2.  
+### 後端 | Backend
+- **FastAPI (Python)** – 提供地震資料的 RESTful API
+- **Java** – 從 USGS 抓取並預處理即時地震資料
+
+### 前端 | Frontend
+- **HTML / CSS / JavaScript** – 使用者介面建置
+- **Deck.gl + Mapbox** – 互動式地圖視覺化
+
+### 資料來源 | Data Source
+- **USGS (United States Geological Survey)** – 全球即時地震資料
+
+### 地圖框架 | Map Framework
+- **Pydeck** – 基於 Deck.gl 的 Python 視覺化工具
+
+### 部署環境 (選填) | Deployment (Optional)
+- **Localhost**（本地開發測試）
+- （可日後補上雲端部署平台如 Vercel、AWS）
+
+---
+
+## 系統架構圖 | System Architecture
+
+```
+plaintext
+[USGS] 
+   ↓  (Fetch data)
+[Java Fetcher]
+   ↓  (Process and send)
+[FastAPI Server (Python)]
+   ↓  (Provide API endpoints)
+[Frontend (HTML / JS)]
+   ↓  (Display)
+[Deck.gl + Mapbox Interactive Map]
+```
 ## 授權條款 | License  
 此專案僅供個人學習與履歷展示用途，禁止未經授權之商業用途。  
 This project is intended for personal learning and portfolio demonstration only. Unauthorized commercial use is prohibited.
