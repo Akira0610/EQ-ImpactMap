@@ -7,7 +7,7 @@
 資料來源：美國地質調查局（USGS Earthquake Catalog）。
 
 # 如何使用(How to use)
-1. 安裝需要的要件 (install requirements)
+1. 安裝需要的要件 (install requirements)\n
 `pip install -r requirements.txt`
 2. 啟動伺服器 (Start server)
 `cd python-api`
