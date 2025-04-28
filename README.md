@@ -1,6 +1,11 @@
-# 全球地震實時視覺化平台  
-Global Earthquake Realtime Visualization Platform
+  # Global Earthquake Realtime Visualization Platform
+  ## 全球地震實時視覺化平台
 
+![License](https://img.shields.io/badge/license-yes-yellow)
+![Language](https://img.shields.io/badge/language-c++-brightgreen)
+![Language](https://img.shields.io/badge/language-JAVA-red)
+![Language](https://img.shields.io/badge/language-python-blue)  
+🌏 
 - [簡介 | Itroduction](#專案簡介--introduction)
 - [安裝方式 | Installation](#安裝方式--installation)
 - [功能清單 | Usage](#功能清單--usage)
