@@ -39,27 +39,33 @@ uvicorn main:app --reload
 - 支援縮放、拖曳、互動 | Zooming, dragging, and navigation support
 
 ## 技術架構 | Tech Stack
-1. 使用者(瀏覽者) 逛網頁
-    後端提供靜態檔案 (html, js, css) 給瀏覽者
-    `page_map.py GET /map`
-### 後端 | Backend
-- **FastAPI (Python)** – 提供地震資料的 RESTful API
-- **Java** – 從 USGS 抓取並預處理即時地震資料
+### 使用者 | User
+  - 使用者透過瀏覽器訪問網站。
+  - 後端提供靜態檔案(HTML,JavaScript,CSS)給前端載入。
+  - FastAPI路由 `page_map.py /map`負責傳回`/map`頁面。  
+### 地震資料抓取 | Earthquake Data Fetching
+  - 後端使用JAVA定時從USGS抓取最新地震資料。
+  - 資料經過初步處理存入後端資料夾。
+  - 主要程式 : `java-fetcher`。
+### API服務 | API Services
+  - **FastAPI (Python)** – 提供地震資料的 RESTful API
+  - 支援篩選條件(時間、規模、地區)，並回傳JSON資料。
+  - 主要API : `earthquake.py`,路由`earthquakes`。  
+### 地圖渲染與互動 | Map Rendering and Interaction
+  - 使用Pydeck和Mapbox將地震資料視覺化成地圖紅點。
+  - 地圖支援紅點顯示tooltip地震詳細資訊
+  - 地圖生成 : `map_generator.py`
+### 前端互動與搜尋 | Fronted Interactionand Search
+  - 前端JS負責處理搜尋表單及防呆驗證。
+  - 使用者輸入篩選條件，前端呼叫後端API更新地圖資料
+  - 主要程式: `main.js`  
+### 定時更新與資料同步 | Scheduled Updates and Data Sync
+  - ?
 
-### 前端 | Frontend
-- **HTML / CSS / JavaScript** – 使用者介面建置
-- **Deck.gl + Mapbox** – 互動式地圖視覺化
-
-### 資料來源 | Data Source
-- **USGS (United States Geological Survey)** – 全球即時地震資料
-
-### 地圖框架 | Map Framework
-- **Pydeck** – 基於 Deck.gl 的 Python 視覺化工具
 ---
 ## 系統架構圖 | System Architecture
 
 ```
-plaintext
 [USGS] 
    ↓  (Fetch data)
 [Java Fetcher]
@@ -75,14 +81,12 @@ plaintext
 This project is intended for personal learning and portfolio demonstration only. Unauthorized commercial use is prohibited.
 
 ## 規劃 | Todo
-1. 切換至 React 前端
-2. 增加地震動畫回放功能
-3. 手機版介面最佳化
-4. 多語言支援（如繁體中文/英文）
-5. 隨著MW變化有不同顏色的球
-6. 對於重大地震有個新聞的超連結 附註在tooltip下方
-7. deploy to sever
-8. if we can finish, use RWD(Responsive Web Design)
+- 切換至 React 前端
+- 多語言支援（如繁體中文/英文）
+- 隨著MW變化有不同顏色的球
+- 對於重大地震有個新聞的超連結 附註在tooltip下方
+- deploy to sever
+- if we can finish, use RWD(Responsive Web Design)
 
 ## 銘謝 | Acknowledgements 
 感謝您使用/閱覽我人生中第一個專案!!如果有任何建議或問題，歡迎提出Issue。  
