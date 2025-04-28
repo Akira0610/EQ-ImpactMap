@@ -1,3 +1,20 @@
+## Language
+
+-[English](#english)
+-[中文](#中文)
+
+---
+
+###English
+
+// Your English content here
+
+---
+
+### 中文
+
+// Your Chinese content here
+
   # Global Earthquake Realtime Visualization Platform
 ![License](https://img.shields.io/badge/license-yes-yellow)
 ![Language](https://img.shields.io/badge/language-python,JAVA-blue)  
