@@ -25,7 +25,7 @@ uvicorn main:app --reload
 3. 開始瀏覽器 | Open youe browser and go to
 瀏覽 http://localhost:8000/map 即可開始使用。
 
-## 功能特色(Features)
+## 功能清單 | Usage
 - 即時獲取全球地震資料
 - 支援搜尋（震度、時間、地區）
 - 動態更新地圖
@@ -56,7 +56,7 @@ uvicorn main:app --reload
 8. if we can finish, use RWD(Responsive Web Design)
 
 
-## 架構
+## 技術架構 | Tech Stack
 
 1. 使用者(瀏覽者) 逛網頁
     後端提供靜態檔案 (html, js, css) 給瀏覽者
