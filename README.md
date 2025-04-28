@@ -9,7 +9,7 @@ Global Earthquake Realtime Visualization Platform
   
 ## 簡介(Introduction)
 一個即時整合 USGS 全球地震資料的互動式地圖平台，使用 FastAPI + Pydeck + Mapbox 實作，支援地震篩選、地圖即時更新，並提供搜尋與視覺化功能。  
-An interactive real-time earthquake data visualization platform, bulit with FastAPI,Pydeck,and Mapbox.
+An interactive real-time earthquake data visualization platform, bulit with FastAPI,Pydeck,and Mapbox.  
 ###資料來源：美國地質調查局資料庫 ( Data Sources : USGS Earthquake Database )
 
 ## 安裝方式 | Installation
