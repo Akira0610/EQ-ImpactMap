@@ -26,12 +26,12 @@ Data Source: USGS Earthquake Catalog
 ```
 pip install -r requirements.txt
 ```
-2.Start the backend server
+2. Start the backend server
 ```
 cd python-api
 uvicorn main:app --reload
 ```
-3.Open your browser and navigate to <http://localhost:8000/map>
+3. Open your browser and navigate to <http://localhost:8000/map>
 
 ## Usage
 - Real‑time retrieval of global earthquake events
