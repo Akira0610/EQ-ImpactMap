@@ -1,41 +1,55 @@
-// java-fetcher/src/EarthquakeFetcher.java
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class EarthquakeFetcher {
+    private static final String urlStr = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
+    private static final String outputPath = "../out/usgs_data.json";
+
     public static void main(String[] args) {
-        String urlStr = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
-        String outputPath = "out/usgs_data.json";
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-        try {
-            // 建立 URL 物件
-            URL url = new URL(urlStr);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+        Runnable fetchTask = () -> {
+            try {
+                fetchEarthquakeData();
+                System.out.println("資料更新完成：" + java.time.LocalDateTime.now());
+            } catch (IOException e) {
+                System.err.println("資料抓取失敗: " + e.getMessage());
+            }
+        };
 
-            // 檢查回應碼
-            if (conn.getResponseCode() == 200) {
-                String json;
-                try (InputStream inputStream = conn.getInputStream()) {
-                    json = new String(inputStream.readAllBytes());
-                }
+        // 先跑一次
+        fetchTask.run();
+        // 每5分鐘跑一次
+        scheduler.scheduleAtFixedRate(fetchTask, 30, 30, TimeUnit.MINUTES);
+    }
 
-                // 確保輸出資料夾存在
-                Files.createDirectories(Paths.get("out"));
+    private static void fetchEarthquakeData() throws IOException {
+        URL url = new URL(urlStr);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
 
-                // 寫入 JSON 檔案
-                Files.write(Paths.get(outputPath), json.getBytes());
-                System.out.println("地震資料已寫入到 " + outputPath);
-            } else {
-                System.err.println("無法抓取資料,HTTP 狀態碼: " + conn.getResponseCode());
+        if (conn.getResponseCode() == 200) {
+            String json;
+            try (InputStream inputStream = conn.getInputStream()) {
+                json = new String(inputStream.readAllBytes());
             }
 
-        } catch (IOException e) {
+            // 確保目錄存在
+            Files.createDirectories(Paths.get("out"));
+            Files.writeString(Paths.get(outputPath), json);
+        } else {
+            throw new IOException("HTTP response code: " + conn.getResponseCode());
         }
+    }
+
+    public static String getUrlStr() {
+        return urlStr;
     }
 }
