@@ -33,17 +33,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById("query-form");
     let deckGl;
     const { DeckGL, ScatterplotLayer } = deck;
-
+    
     function createScatterLayer(data) {
         return new ScatterplotLayer({
             id: 'circles',
             data: data,
             radiusMinPixels: 0.5,
             getPosition: d => d.coordinates,
-            getColor: [255, 0, 0],
+            getFillColor: d => {
+                // 根據震度動態設定顏色
+                if (d.magnitude < 1) {
+                    return [0, 0, 255];
+                } else if (d.magnitude < 2) {
+                    return [0, 128, 255];
+                } else if (d.magnitude < 3){
+                    return [0, 255, 255];
+                } else if (d.magnitude < 4){
+                    return [0, 255, 128];
+                } else if (d.magnitude < 5) {
+                    return [0, 255, 0];
+                } else if (d.magnitude < 6) {
+                    return [128, 255, 0];
+                } else if (d.magnitude < 7) {
+                    return [255, 255, 0];
+                } else if (d.magnitude < 8) {
+                    return [255, 165, 0];
+                } else if (d.magnitude < 9) {
+                    return [255, 64, 0];
+                } else if (d.magnitude < 10) {
+                    return [255, 0, 0];
+                } else {
+                    return [128, 0, 0];
+                }
+            },
             getRadius: d => d.magnitude * 8000,
             pickable: true
-        })
+        });
     }
 
     form.addEventListener("submit", async (e) => {

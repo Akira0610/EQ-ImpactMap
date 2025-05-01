@@ -3,9 +3,6 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
-from services.fetcher import load_earthquake_data
-from services.map_generator import generate_earthquake_map
-import traceback
 from .earthquake import get_earthquakes
 
 router = APIRouter()
