@@ -7,7 +7,7 @@ from routers import earthquake, page_map
 
 app = FastAPI()
 
-static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "C:/Users/User/Desktop/EQIDV_backend/static"))
+static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "./static"))
 app.mount("/static", StaticFiles(directory=static_path), name="static")
 
 app.include_router(earthquake.router, prefix="/earthquakes")
