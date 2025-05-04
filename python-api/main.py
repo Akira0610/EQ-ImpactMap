@@ -6,8 +6,9 @@ from fastapi.staticfiles import StaticFiles
 from routers import earthquake, page_map
 
 app = FastAPI()
-
-static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "./static"))
+print(__file__)
+static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../static"))
+print("📁 Static path:", static_path)
 app.mount("/static", StaticFiles(directory=static_path), name="static")
 
 app.include_router(earthquake.router, prefix="/earthquakes")
