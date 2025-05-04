@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class EarthquakeFetcher {
     private static final String urlStr = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
-    private static final String outputPath = "../out/usgs_data.json";
+    private static final String outputPath = "./out/usgs_data.json";
 
     public static void main(String[] args) {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -27,7 +27,7 @@ public class EarthquakeFetcher {
         // 先跑一次
         fetchTask.run();
         // 每5分鐘跑一次
-        scheduler.scheduleAtFixedRate(fetchTask, 30, 30, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(fetchTask, 5, 5, TimeUnit.SECONDS);
     }
 
     private static void fetchEarthquakeData() throws IOException {
