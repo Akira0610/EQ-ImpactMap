@@ -28,6 +28,7 @@ pip install -r requirements.txt
 ```
 2. Start the backend server
 ```
+java -cp out EarthquakeFetcher
 cd python-api
 uvicorn main:app --reload
 ```
