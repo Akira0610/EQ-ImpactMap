@@ -60,8 +60,6 @@ uvicorn main:app --reload
 ### Fronted Interactionand Search
   - `main.js` handles the search form, client‑side validation, and API calls.
   - User queries trigger map refreshes with filtered data.  
-### Scheduled Updates and Data Sync
-  - ?
 
 ---
 ## System Architecture
@@ -80,15 +78,8 @@ uvicorn main:app --reload
 ## License  
 ***This project is intended for personal learning and portfolio demonstration only. Unauthorized commercial use is prohibited.***
 
-## Todo
-- Migrate front end to React
-- Multi‑language support (English / Traditional Chinese)
-- Colour‑coded markers based on magnitude
-- Add news links for major earthquakes (shown in tooltips)
-- deploy to sever
-- Implement fully responsive design (RWD)
-
 ## Acknowledgements 
 Thank you for checking out my FIRST project!  
 Feel free to open an issue if you have any questions or suggestions.
 Feel free to open as issue if you have any suggestions or questions.
+my BEST friend KCL and OuO
