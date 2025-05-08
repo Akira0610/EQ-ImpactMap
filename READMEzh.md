@@ -29,6 +29,7 @@ pip install -r requirements.txt
 ```
 3. 啟動伺服器
 ```
+java -cp out EarthquakeFetcher
 cd python-api
 uvicorn main:app --reload
 ```
@@ -64,7 +65,7 @@ uvicorn main:app --reload
   - 使用者輸入篩選條件，前端呼叫後端API更新地圖資料
   - 主要程式: `main.js`  
 ### 定時更新與資料同步
-  - ?
+  - 請手動開啟java檔會自動更新，若要更改爬蟲的範圍請先編譯過後再重新啟動。
 
 ---
 ## 系統架構圖
@@ -83,13 +84,6 @@ uvicorn main:app --reload
 ## 授權條款
 此專案僅供個人學習與履歷展示用途，禁止未經授權之商業用途。  
 
-## 規劃
-- 切換至 React 前端
-- 多語言支援（如繁體中文/英文）
-- 隨著MW變化有不同顏色的球
-- 對於重大地震有個新聞的超連結 附註在tooltip下方
-- 丟去伺服器
-- 響應式網頁
-
 ## 銘謝
 感謝您使用/閱覽我人生中第一個專案!!如果有任何建議或問題，歡迎提出Issue。  
+感謝表情跟kcl
