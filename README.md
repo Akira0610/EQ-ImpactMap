@@ -59,7 +59,9 @@ uvicorn main:app --reload
   - Map generation: `map_generator.py`  
 ### Fronted Interactionand Search
   - `main.js` handles the search form, client‑side validation, and API calls.
-  - User queries trigger map refreshes with filtered data.  
+  - User queries trigger map refreshes with filtered data.
+### Periodic Updates and Data Synchronization
+  - Please manually launch the Java file to trigger automatic updates. If you need to modify the crawling scope, recompile it first and then restart.    
 
 ---
 ## System Architecture
