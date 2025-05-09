@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/license-yes-yellow)
 
 # 🌏Table of Contents 
-- [Itroduction](#introduction)
+- [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tech Stack](#tech-stack)
@@ -18,21 +18,32 @@
 
   
 ## Introduction
-Global Earthquake Realtime Visualization Platform is an interactive web application that integrates real‑time earthquake data from the United States Geological Survey (USGS). Built with FastAPI, Pydeck, and Mapbox, the platform lets users filter earthquakes by magnitude, time, and region while exploring them on an interactive map that updates in real time.  
-Data Source: USGS Earthquake Catalog
+Global Earthquake Realtime Visualization Platform is an interactive web application that integrates real‑time earthquake data from the United States Geological Survey (USGS). Built with FastAPI, Pydeck, AJAX and Mapbox, the platform lets users filter earthquakes by magnitude, time, and region while exploring them on an interactive map that updates in real time.  
+### Data Source: USGS Earthquake Catalog  
+
+## Python Environment Requirements
+- Main packages:
+  - FastAPI
+  - Uvicorn
+  - Pydeck
+  - Mapbox
 
 ## Installation
-1. install requirements
+1. install Dependencies
 ```
 pip install -r requirements.txt
 ```
-2. Start the backend server
+2. Compile and Run Java Fetcher
+- Compile the Java program:
+  ```javac -d out src/EarthquakeFetcher.java```
+- Run the fetcher:
+  ```java -cp out EarthquakeFetcher```
+3. Start Python API Server
 ```
-java -cp out EarthquakeFetcher
 cd python-api
 uvicorn main:app --reload
 ```
-3. Open your browser and navigate to <http://localhost:8000/map>
+4. Open your browser <http://localhost:8000/map>
 
 ## Usage
 - Real‑time retrieval of global earthquake events
@@ -45,23 +56,19 @@ uvicorn main:app --reload
 ### Client
   - Users access the site with a standard web browser.
   - Static assets (HTML / JS / CSS) are served by FastAPI.
-  - FastAPI Router `page_map.py /map`delivers the map page.`/map`.  
+  - FastAPI Router route `page_map.py` handles `/map` requests.  
 ### Earthquake Data Fetching
   - Java service periodically pulls the latest data from the USGS feed.
-  - Data are pre‑processed and stored for the API.
-  - Main module: `java-fetcher`.  
+  - Data is pre‑processed and stored for the API. 
 ### API Services
   - **FastAPI (Python)** –  provides a RESTful API(/earthquakes) returning JSON.
   - Main routers`earthquake.py`.  
 ### Map Rendering and Interaction
   - Pydeck + Mapbox visualise earthquakes as markers.
-  - Tooltips reveal magnitude, depth, location, and UTC timestamp.
-  - Map generation: `map_generator.py`  
-### Fronted Interactionand Search
+  - Tooltips reveal magnitude, depth, location, and UTC timestamp. 
+### Frontend Interactionand Search
   - `main.js` handles the search form, client‑side validation, and API calls.
-  - User queries trigger map refreshes with filtered data.
-### Periodic Updates and Data Synchronization
-  - Please manually launch the Java file to trigger automatic updates. If you need to modify the crawling scope, recompile it first and then restart.    
+  - User queries trigger map refreshes with filtered data.    
 
 ---
 ## System Architecture
@@ -83,5 +90,6 @@ uvicorn main:app --reload
 ## Acknowledgements 
 Thank you for checking out my FIRST project!  
 Feel free to open an issue if you have any questions or suggestions.
-Feel free to open as issue if you have any suggestions or questions.
-my BEST friend KCL and OuO
+Feel free to open issue if you have any suggestions or questions.
+  
+`Special thanks to my best friend KCL and OuO.`

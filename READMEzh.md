@@ -17,15 +17,9 @@
 - [銘謝](#銘謝)
   
 ## 簡介 | Introduction
-一個即時整合 USGS 全球地震資料的互動式地圖平台，使用 FastAPI + Pydeck + Mapbox 實作，支援地震篩選、地圖即時更新，並提供搜尋與視覺化功能。  
+一個即時整合 USGS 全球地震資料的互動式地圖平台，使用 FastAPI + Pydeck + Mapbox ＋ ajax實作，支援地震篩選、地圖即時更新，並提供搜尋與視覺化功能。  
+### 資料來源：美國地質調查局資料庫  
 
-
-### 資料來源：美國地質調查局資料庫
-
-## Java 環境需求
-- 請確保已安裝 Java 8 或以上版本。
-- 編譯 Java 程式：
-```javac -d out src/EarthquakeFetcher.java```  
 ## Python 環境需求
 - 主要套件：
   - FastAPI
@@ -35,16 +29,24 @@
 
 ## 安裝方式
 1. 安裝需要的要件
-```
-pip install -r requirements.txt
-```
-3. 啟動伺服器
-```
-java -cp out EarthquakeFetcher
-cd python-api
-uvicorn main:app --reload
-```
-3. 開始瀏覽器
+- ```
+  pip install -r requirements.txt
+  ```
+2. 編譯並啟動java抓取程式
+- 編譯 Java 程式：
+  ```
+  javac -d out src/EarthquakeFetcher.java
+  ```
+- 啟動 Java 抓取程式：
+  ```
+  java -cp out EarthquakeFetcher
+  ```
+3. 啟動 Python API 伺服器
+- ```
+  cd python-api
+  uvicorn main:app --reload
+  ```
+4. 開始瀏覽器
 瀏覽 http://localhost:8000/map 即可開始使用。
 
 ## 功能清單
@@ -62,7 +64,6 @@ uvicorn main:app --reload
 ### 地震資料抓取
   - 後端使用JAVA定時從USGS抓取最新地震資料。
   - 資料經過初步處理存入後端資料夾。
-  - 主要程式 : `java-fetcher`。
 ### API服務
   - **FastAPI (Python)** – 提供地震資料的 RESTful API
   - 支援篩選條件(時間、規模、地區)，並回傳JSON資料。
@@ -70,22 +71,10 @@ uvicorn main:app --reload
 ### 地圖渲染與互動
   - 使用Pydeck和Mapbox將地震資料視覺化成地圖紅點。
   - 地圖支援紅點顯示tooltip地震詳細資訊
-  - 地圖生成 : `map_generator.py`
 ### 前端互動與搜尋
   - 前端JS負責處理搜尋表單及防呆驗證。
   - 使用者輸入篩選條件，前端呼叫後端API更新地圖資料
   - 主要程式: `main.js`  
-### 定時更新與資料同步
-  - 請手動開啟java檔會自動更新，若要更改爬蟲的範圍請先編譯過後再重新啟動。
-### 更改抓取範圍
-- 修改 `EarthquakeFetcher.java` 中的 `urlStr`：
-  ```java
-  private static final String urlStr = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=1900-01-01&endtime=2025-05-09&minmagnitude=4.0";  
-  - 編譯後重新啟動：  
-```
-javac -d out src/EarthquakeFetcher.java
-java -cp out EarthquakeFetcher
-```
 
 ---
 ## 系統架構圖

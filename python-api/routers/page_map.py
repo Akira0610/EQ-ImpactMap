@@ -21,7 +21,6 @@ def render_template_map(request: Request):
 # ✅ POST /earthquake-info：接收查詢條件並回傳地震的資料
 @router.post("/earthquake-info", response_class=JSONResponse)
 async def render_dynamic_map(request: Request):
-    print("[DEBUG] 收到 POST 請求")
     try:
         filterpara = await request.json()
         result1 = get_earthquakes(
