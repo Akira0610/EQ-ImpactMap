@@ -1,4 +1,4 @@
-  # Global Earthquake Realtime Visualization Platform
+  # 全球即時視覺化地震平台
 ![Language](https://img.shields.io/badge/language-python-blue)
 ![Language](https://img.shields.io/badge/language-JS-yellow)
 ![Language](https://img.shields.io/badge/language-JAVA-red)
@@ -21,6 +21,17 @@
 
 
 ### 資料來源：美國地質調查局資料庫
+
+## Java 環境需求
+- 請確保已安裝 Java 8 或以上版本。
+- 編譯 Java 程式：
+```javac -d out src/EarthquakeFetcher.java```  
+## Python 環境需求
+- 主要套件：
+  - FastAPI
+  - Uvicorn
+  - Pydeck
+  - Mapbox
 
 ## 安裝方式
 1. 安裝需要的要件
@@ -66,6 +77,15 @@ uvicorn main:app --reload
   - 主要程式: `main.js`  
 ### 定時更新與資料同步
   - 請手動開啟java檔會自動更新，若要更改爬蟲的範圍請先編譯過後再重新啟動。
+### 更改抓取範圍
+- 修改 `EarthquakeFetcher.java` 中的 `urlStr`：
+  ```java
+  private static final String urlStr = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=1900-01-01&endtime=2025-05-09&minmagnitude=4.0";  
+  - 編譯後重新啟動：  
+```
+javac -d out src/EarthquakeFetcher.java
+java -cp out EarthquakeFetcher
+```
 
 ---
 ## 系統架構圖

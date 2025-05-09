@@ -24,9 +24,7 @@ public class EarthquakeFetcher {
             }
         };
 
-        // 先跑一次
         fetchTask.run();
-        // 每5分鐘跑一次
         scheduler.scheduleAtFixedRate(fetchTask, 30, 5, TimeUnit.MINUTES);
     }
 

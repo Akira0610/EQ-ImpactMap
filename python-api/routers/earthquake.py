@@ -16,7 +16,6 @@ def get_earthquakes(
     region: Optional[str],
 ):
     try:
-        # ✅ 處理空字串與轉型
         min_magnitude = float(min_magnitude) if min_magnitude not in (None, "", "null") else None
         max_magnitude = float(max_magnitude) if max_magnitude not in (None, "", "null") else None
         start_time = start_time if start_time not in (None, "", "null") else None
