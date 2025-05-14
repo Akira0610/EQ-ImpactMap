@@ -22,7 +22,7 @@ jobs:
         uses: docker/login-action@v3
         with:
             registry: ghcr.io
-            username: ${{ env.LOWERCASE_USERNAME }}
+            username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
       
         #擴展更多跨版本的功能
@@ -38,6 +38,6 @@ jobs:
         #latest 永遠指定最新的東西 沒有指定version
         with:
           push: true
-          tags: ghcr.io/${{ github.actor }}/eqidv-back:latest
+          tags: ghcr.io/${{ env.LOWERCASE_USERNAME }}/eqidv-back:latest
         
           
