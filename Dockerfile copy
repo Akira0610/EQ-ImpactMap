@@ -3,7 +3,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     unzip \
     gnupg2 \
-    && curl -L -o openjdk21.tar.gz https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.2%2B13/OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13.tar.gz \
+    && curl -L -o openjdk21.tar.gz https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.2%2B13/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.2_13.tar.gz \
     && mkdir -p /opt/java/openjdk21 \
     && tar -xzf openjdk21.tar.gz -C /opt/java/openjdk21 --strip-components=1 \
     && rm openjdk21.tar.gz \
