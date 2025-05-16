@@ -31,4 +31,4 @@ RUN javac -d out src/EarthquakeFetcher.java
 
 # 切換回 Python API 目錄並啟動服務
 WORKDIR /app/python-api
-CMD ["sh", "-c", "cd /app/python-api && java -cp /app/java-fetcher/out EarthquakeFetcher & uvicorn main:app --host 0.0.0.0 --port 8000"]
+CMD ["sh", "-c", "cd /app/python-api && java -cp /app/java-fetcher/src EarthquakeFetcher & uvicorn main:app --host 0.0.0.0 --port 8000"]
