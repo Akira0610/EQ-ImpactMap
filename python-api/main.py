@@ -1,6 +1,6 @@
 import os
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from routers import earthquake, page_map
@@ -16,6 +16,6 @@ app.include_router(page_map.router)
 
 templates = Jinja2Templates(directory="templates")
 
-@app.get("/map")
-def root():
-    return {"message": "API is running"}
+@app.get("/")
+async def root():
+    return RedirectResponse(url="/map")
