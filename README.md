@@ -1,10 +1,13 @@
 # Global Earthquake Realtime Visualization Platform
 ![Language](https://img.shields.io/badge/language-python-blue)
-![Language](https://img.shields.io/badge/language-JS-yellow)
-![Language](https://img.shields.io/badge/language-JAVA-red)
+![Language](https://img.shields.io/badge/language-JavaScript-yellow)
+![Language](https://img.shields.io/badge/language-JAVA-orangered)
 ![Language](https://img.shields.io/badge/language-CSS-purple)
 ![Language](https://img.shields.io/badge/language-HTML-brown)
-![License](https://img.shields.io/badge/license-yes-yellow)
+![License](https://img.shields.io/badge/language-dockerfile-lightblue)
+
+👉 [🌐 Click here to try the live demo](https://eqidv-back-latest.onrender.com/map)  
+(P.S. This is a free-tier deployment, so the site may sleep when idle)
 
 # 🌏Table of Contents 
 - [Introduction](#introduction)
@@ -13,20 +16,12 @@
 - [Tech Stack](#tech-stack)
 - [System Architecture](#system-architecture)
 - [License](#license)
-- [Todo](#todo)
 - [Acknowledgements](#acknowledgements)
 
   
 ## Introduction
-Global Earthquake Realtime Visualization Platform is an interactive web application that integrates real‑time earthquake data from the United States Geological Survey (USGS). Built with FastAPI, Pydeck, AJAX and Mapbox, the platform lets users filter earthquakes by magnitude, time, and region while exploring them on an interactive map that updates in real time.  
+The Global Earthquake Realtime Visualization Platform is a full-stack web application that fetches real-time earthquake data from the USGS and displays it visually on an interactive world map. The goal is to help users quickly understand the location, magnitude, and impact of earthquakes.
 ### Data Source: USGS Earthquake Catalog  
-
-## Python Environment Requirements
-- Main packages:
-  - FastAPI
-  - Uvicorn
-  - Pydeck
-  - Mapbox
 
 ## Installation
 1. install Dependencies
